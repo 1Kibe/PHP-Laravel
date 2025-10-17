@@ -17,7 +17,7 @@ class ProductController extends Controller
     
     public function create()
     {
-        return view('products.create');
+        return view('products.create_update');
     }
    /**
      * Store a newly created resource in storage.
@@ -45,7 +45,7 @@ class ProductController extends Controller
 
     {
         $product = Product::find($id);
-        return view('products.create_update');
+        return view('products.create_update', compact('product'));
     }
 
     /**

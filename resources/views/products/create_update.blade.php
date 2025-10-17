@@ -6,7 +6,7 @@
     </h1> 
     
     <form action="{{ isset($product) ?
-    route('products.update', $product->id):
+    route('products.update', $product->id) :
     route('products.store')}}"
     method="POST">
    @csrf
@@ -18,12 +18,11 @@
    <div class="mb-3">
         <label for="name" class="form-label"><b>Nome</b></label>
         <input type="text" class="form-control" id="name" name="name" value="{{ $product->name ?? '' }}" required>
-</div>  
+    </div>
 
 <div class="mb-3">
         <label for="description" class="form-label"><b>Descrição</b></label>
-        <textarea name="description" id="" rows="2" class="form-control">
-            {{ $product->description ?? '' }} </textarea>
+        <textarea name="description" id="" rows="2" class="form-control">{{ $product->description ?? '' }} </textarea>
 </div>
 
 <div class="mb-3"">
