@@ -19,9 +19,10 @@ class ProductController extends Controller
     {
         return view('products.create');
     }
-
-    /**
+   /**
      * Store a newly created resource in storage.
+     * 
+    
      */
     public function store(Request $request)
     {
@@ -40,9 +41,11 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
+
     {
-        //
+        $product = Product::find($id);
+        return view('products.create_update');
     }
 
     /**
@@ -50,7 +53,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        Product::find($id)->update($request->all());
+        return redirect()->route('products.index');
     }
 
     /**
@@ -58,6 +62,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Product::find($id)->delete();
+        return redirect()->route('products.index');
     }
 }

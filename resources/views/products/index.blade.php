@@ -20,10 +20,19 @@
                 <td>{{ $product->description }}</td>
                 <td>{{ $product->price }}</td>
                 <td> Acoes aqui! </td>
+                <td>
+                    <a href="{{ route('products.edit', $product->id) }}" 
+                    class="btn btn-sm btn-warning">Editar</a>
+                    <form action="{{ route('products.destroy', $product->id) }}"
+                     method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger">Deletar</button>
+                    </form>
+                </td>
             </tr>
-                
             @endforeach
         </table>
-<div>    
+</div>
 
 @endsection
