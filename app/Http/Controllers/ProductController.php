@@ -19,13 +19,19 @@ class ProductController extends Controller
     {
         return view('products.create_update');
     }
-   /**
-     * Store a newly created resource in storage.
-     * 
-    
-     */
+  
     public function store(Request $request)
-    {
+    {    
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+        ], [
+            'name.required' => 'O campo Nome é obrigatório.',
+            'description.required' => 'O campo Descrição é obrigatório.',
+            'price.required' => 'O campo Preço é obrigatório.',
+        ]);      
+
         Product::create($request->all());
         return redirect()->route('products.index');
     }

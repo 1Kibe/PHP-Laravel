@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <h1>{{ isset($product) ? 'Editar Produto' : 'Adicionar Produto' }}        
     </h1> 
-    
+   
     <form action="{{ isset($product) ?
     route('products.update', $product->id) :
     route('products.store')}}"
@@ -17,18 +17,27 @@
 
    <div class="mb-3">
         <label for="name" class="form-label"><b>Nome</b></label>
-        <input type="text" class="form-control" id="name" name="name" value="{{ $product->name ?? '' }}" required>
+        <input type="text" class="form-control" id="name" name="name" value="{{ $product->name ?? '' }}" />
+        @error('name')
+            <div class="text-danger">{{ $message }}</span><span>
+        @enderror
     </div>
 
 <div class="mb-3">
         <label for="description" class="form-label"><b>Descrição</b></label>
         <textarea name="description" id="" rows="2" class="form-control">{{ $product->description ?? '' }} </textarea>
+        @error('description')
+            <div class="text-danger">{{ $message }}</span><span>
+        @enderror
 </div>
 
-<div class="mb-3"">
+<div class="mb-3">
         <label class="form-label" for="price"><b>Preço</b></label>
         <input type="number"name="price" class="form-control"
         value="{{ $product->price ?? '' }}" />
+        @error('price')
+            <div class="text-danger">{{ $message }}</span><span>
+        @enderror
 </div>
 
 <button type="submit" class="btn btn-success">Salvar</button>

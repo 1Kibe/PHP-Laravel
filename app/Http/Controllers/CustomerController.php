@@ -20,6 +20,19 @@ class CustomerController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'cpf' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'address' => 'required',
+        ], [
+            'name.required' => 'O campo Nome é obrigatório.',
+            'cpf.required' => 'O campo CPF é obrigatório.',
+            'email.required' => 'O campo Email é obrigatório.',            
+            'phone.required' => 'O campo Telefone é obrigatório.',
+            'address.required' => 'O campo Endereço é obrigatório.',
+        ]);  
         Customer::create($request->all());
         return redirect()->route('customers.index');
     }
