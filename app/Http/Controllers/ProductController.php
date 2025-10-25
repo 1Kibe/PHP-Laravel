@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,8 @@ class ProductController extends Controller
     
     public function create()
     {
-        return view('products.create_update');
+        $categories = Category::get();
+        return view('products.create_update', compact('categories'));
     }
   
     public function store(Request $request)
@@ -51,7 +53,8 @@ class ProductController extends Controller
 
     {
         $product = Product::find($id);
-        return view('products.create_update', compact('product'));
+        $categories = Category::get();
+        return view('products.create_update', compact('product', 'categories'));
     }
 
     /**
