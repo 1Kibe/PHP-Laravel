@@ -7,59 +7,50 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Página principal (listar todas)
     public function index()
     {
-        //
+        $categories = Category::get();
+        return view('categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Formulário de criação
     public function create()
     {
-       
+        return view('categories.create_update');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Criar nova categoria
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ], [
+            'name.required' => 'O campo Nome é obrigatório.',
+        ]);
+
+        Category::create($request->all());
+        return redirect()->route('categories.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Formulário de edição
+    public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view('categories.create_update', compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    // Atualizar categoria existente
     public function update(Request $request, string $id)
     {
-        //
+        Category::find($id)->update($request->all());
+        return redirect()->route('categories.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Excluir categoria
     public function destroy(string $id)
     {
-        //
+        Category::find($id)->delete();
+        return redirect()->route('categories.index');
     }
 }

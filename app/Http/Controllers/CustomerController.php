@@ -22,7 +22,7 @@ class CustomerController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'cpf' => 'required',
+            'cpf' => 'required|size:11',
             'email' => 'required|email',
             'phone' => 'required',
             'address' => 'required',

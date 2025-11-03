@@ -11,18 +11,18 @@ class ProductController extends Controller
      
     public function index()
     {
-        $products = Product::get();
+        $products = Product::get(); // listar todos- pagina principal
         return view('products.index', compact('products'));
     }
 
     
     public function create()
     {
-        $categories = Category::get();
+        $categories = Category::get(); //rota de criacao ou alteracao
         return view('products.create_update', compact('categories'));
     }
   
-    public function store(Request $request)
+    public function store(Request $request) //validacoes
     {    
         $request->validate([
             'name' => 'required',
@@ -34,7 +34,7 @@ class ProductController extends Controller
             'price.required' => 'O campo Preço é obrigatório.',
         ]);      
 
-        Product::create($request->all());
+        Product::create($request->all()); //rota de criacao
         return redirect()->route('products.index');
     }
 
@@ -52,7 +52,7 @@ class ProductController extends Controller
     public function edit($id)
 
     {
-        $product = Product::find($id);
+        $product = Product::find($id); //rota de edicao
         $categories = Category::get();
         return view('products.create_update', compact('product', 'categories'));
     }
@@ -69,7 +69,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id) //rota deletar
     {
         Product::find($id)->delete();
         return redirect()->route('products.index');

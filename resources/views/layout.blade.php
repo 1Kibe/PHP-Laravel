@@ -13,6 +13,7 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">Produtos</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('customers.index') }}">Clientes</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('categories.index') }}">Categorias</a></li>
             </ul>
         </div>
     </div>
