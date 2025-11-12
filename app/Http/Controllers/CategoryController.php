@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Services\CategoryService;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
+    protected $categoryService;
+
+    // Injeção do service
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     // Página principal (listar todas)
     public function index()
     {
-        $categories = Category::get();
+        $categories = $this->categoryService->getAll();
         return view('categories.index', compact('categories'));
     }
 
@@ -21,36 +29,30 @@ class CategoryController extends Controller
     }
 
     // Criar nova categoria
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-        ], [
-            'name.required' => 'O campo Nome é obrigatório.',
-        ]);
-
-        Category::create($request->all());
+        $this->categoryService->create($request->validated());
         return redirect()->route('categories.index');
     }
 
     // Formulário de edição
     public function edit($id)
     {
-        $category = Category::find($id);
+        $category = $this->categoryService->getById($id);
         return view('categories.create_update', compact('category'));
     }
 
     // Atualizar categoria existente
-    public function update(Request $request, string $id)
+    public function update(CategoryRequest $request, $id)
     {
-        Category::find($id)->update($request->all());
+        $this->categoryService->update($id, $request->validated());
         return redirect()->route('categories.index');
     }
 
     // Excluir categoria
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        Category::find($id)->delete();
+        $this->categoryService->delete($id);
         return redirect()->route('categories.index');
     }
 }
